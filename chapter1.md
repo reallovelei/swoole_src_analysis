@@ -108,3 +108,19 @@ swServer_init(serv);
 
 初始化一些server的配置。
 
+```C
+void swServer_init(swServer *serv)
+{
+    swoole_init();
+    bzero(serv, sizeof(swServer));
+    
+    serv->reactor_num = SW_REACTOR_NUM > SW_REACTOR_MAX_THREAD ? SW_REACTOR_MAX_THREAD : SW_REACTOR_NUM;
+
+    serv->dispatch_mode = SW_DISPATCH_FDMOD;    // 固定worker
+
+    serv->timeout_usec = SW_REACTOR_TIMEO_USEC;  //300ms;
+    serv->worker_num = SW_CPU_NUM;                 //默认CPU核数
+```
+
+
+
