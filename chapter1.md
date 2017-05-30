@@ -7,8 +7,6 @@ $serv = new swoole_server(string $host, int $port, int $mode = SWOOLE_PROCESS,
     int $sock_type = SWOOLE_SOCK_TCP);
 ```
 
-
-
 那么这段代码对应的是
 
 ```C
@@ -99,7 +97,5 @@ PHP_METHOD(swoole_server, __construct)
 }
 ```
 
-
-
-
+其实这段代码本身没什么，先是做了一些判断，然后就是把接收到的参数更新到 server的属性中去了。
 
