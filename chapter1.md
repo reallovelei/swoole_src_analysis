@@ -123,6 +123,8 @@ void swServer_init(swServer *serv)
 }
 ```
 
+然后我们会设置 一些配置参数
+
 最后 我们都会进行一次start
 
 ```php
