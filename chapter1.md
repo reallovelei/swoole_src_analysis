@@ -123,7 +123,19 @@ void swServer_init(swServer *serv)
 }
 ```
 
-然后我们会设置 一些配置参数
+然后我们会设置 一些配置参数 具体有哪些参数,都什么含义，wiki中都有。
+
+```php
+$serv->set(array(
+    'worker_num' => 1,
+    'daemonize' => 1,
+    'buffer_output_size' => 1024 * 1024 *1024,
+    //'task_worker_num' => 2,
+    //'task_ipc_mode' => 3,
+    'max_request' => 0,
+    'log_file' => "/var/log/proxy/quote".date('Y-m-d').".log"
+));
+```
 
 最后 我们都会进行一次start
 
