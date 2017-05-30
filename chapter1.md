@@ -120,6 +120,13 @@ void swServer_init(swServer *serv)
 
     serv->timeout_usec = SW_REACTOR_TIMEO_USEC;  //300ms;
     serv->worker_num = SW_CPU_NUM;               //默认CPU核数
+}
+```
+
+最后 我们都会进行一次start
+
+```php
+$serv->start()
 ```
 
 
