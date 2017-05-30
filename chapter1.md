@@ -106,5 +106,5 @@ swServer *serv = sw_malloc(sizeof (swServer));
 swServer_init(serv);
 ```
 
-
+初始化一些server的配置。
 
