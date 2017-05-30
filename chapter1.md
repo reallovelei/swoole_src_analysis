@@ -145,5 +145,45 @@ $serv->set(array(
 $serv->start()
 ```
 
+对应源码：swoole\_server.c
+
+```C
+
+PHP_METHOD(swoole_server, start)
+{
+    zval *zobject = getThis();
+    int ret;
+
+    if (SwooleGS->start > 0)
+    {
+        swoole_php_fatal_error(E_WARNING, "Server is running. Unable to execute swoole_server::start.");
+        RETURN_FALSE;
+    }
+
+    swServer *serv = swoole_get_object(zobject);
+    php_swoole_register_callback(serv);
+
+    if (php_sw_server_callbacks[SW_SERVER_CB_onReceive] == NULL && php_sw_server_callbacks[SW_SERVER_CB_onPacket] == NULL)
+    {
+        swoole_php_fatal_error(E_ERROR, "require onReceive/onPacket callback");
+        RETURN_FALSE;
+    }
+    //-------------------------------------------------------------
+    serv->onReceive = php_swoole_onReceive;
+    serv->ptr2 = zobject;
+
+    sw_zval_add_ref(&zobject);
+    php_swoole_server_before_start(serv, zobject TSRMLS_CC);
+
+    ret = swServer_start(serv);
+    if (ret < 0)
+    {
+        swoole_php_fatal_error(E_ERROR, "start server failed. Error: %s", sw_error);
+        RETURN_LONG(ret);
+    }
+    RETURN_TRUE;
+}
+```
+
 
 
